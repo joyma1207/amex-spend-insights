@@ -1,0 +1,35 @@
+{
+  "expo": {
+    "name": "Amex Spend Insights",
+    "slug": "amex-spend-insights",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "amexspendinsights",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "backgroundColor": "#006FCF",
+      "resizeMode": "contain"
+    },
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.amexcanada.spendinsights"
+    },
+    "android": {
+      "package": "com.amexcanada.spendinsights",
+      "adaptiveIcon": {
+        "backgroundColor": "#006FCF"
+      }
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "single"
+    },
+    "plugins": [
+      "expo-router"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}
