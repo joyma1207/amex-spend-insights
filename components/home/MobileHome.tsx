@@ -10,8 +10,13 @@ import Svg, {
   Stop,
 } from 'react-native-svg';
 import { AmexColors } from '@/constants/amexColors';
+import { CATEGORY_META } from '@/constants/categories';
 import { SpendInsightsHomeCard } from '@/components/spend-insights/SpendInsightsHomeCard';
-import type { SpendInsightsResponse } from '@/types/spendInsights';
+import { useAllTransactions } from '@/services/spendInsightsApi';
+import type {
+  CategoryTransaction,
+  SpendInsightsResponse,
+} from '@/types/spendInsights';
 import type { AccountSnapshot } from '@/types/account';
 import {
   formatCurrency,
@@ -53,6 +58,11 @@ export function MobileHome({
   }, [insights]);
 
   const topCategory = topFour?.[0];
+
+  const { data: transactions } = useAllTransactions(insights?.billingMonth);
+  const transactionGroups = useMemo(() => groupByDate(transactions ?? []), [
+    transactions,
+  ]);
 
   const last4 = account?.last4 ?? '••••';
   const currentBalance = account
@@ -148,27 +158,45 @@ export function MobileHome({
           />
         </View>
 
-        {/* ── Recent Activity stub ───────────────────────────────────── */}
-        <Text style={styles.dateHeader}>20 Apr</Text>
-        <View style={styles.txnCard}>
-          <View style={{ flex: 1 }}>
-            <Text style={styles.txnMerchant}>NOBLE WELLNESS SPA</Text>
+        {/* ── Recent Activity ────────────────────────────────────────── */}
+        {/*
+          Sourced from useAllTransactions(billingMonth) — identical generator
+          as the per-category "View all transactions" screens, so this feed is
+          always a strict superset of what you'll see after drilling in.
+        */}
+        {transactionGroups.map((group) => (
+          <View key={group.date}>
+            <Text style={styles.dateHeader}>
+              {formatDayMonth(group.date)}
+            </Text>
+            {group.rows.map((row) => {
+              const meta = CATEGORY_META[row.categoryId];
+              return (
+                <View key={row.id} style={styles.txnCard}>
+                  <View style={styles.txnIconDot}>
+                    <Text style={{ color: meta.color, fontSize: 14 }}>
+                      {meta.glyph}
+                    </Text>
+                  </View>
+                  <View style={{ flex: 1, minWidth: 0 }}>
+                    <Text style={styles.txnMerchant} numberOfLines={1}>
+                      {row.merchantName.toUpperCase()}
+                    </Text>
+                    <Text style={styles.txnSubMeta}>
+                      {meta.label} · +
+                      {row.pointsEarned.toLocaleString('en-CA')} MR
+                    </Text>
+                  </View>
+                  <View style={styles.txnAmountWrap}>
+                    <Text style={styles.txnAmount}>
+                      {formatCurrency(row.amount, true)}
+                    </Text>
+                  </View>
+                </View>
+              );
+            })}
           </View>
-          <View style={styles.txnAmountWrap}>
-            <Text style={styles.txnAmount}>$6.00</Text>
-            <Text style={styles.txnPending}>Pending</Text>
-          </View>
-        </View>
-
-        <Text style={styles.dateHeader}>19 Apr</Text>
-        <View style={styles.txnCard}>
-          <View style={{ flex: 1 }}>
-            <Text style={styles.txnMerchant}>UBEREATS</Text>
-          </View>
-          <View style={styles.txnAmountWrap}>
-            <Text style={styles.txnAmount}>$24.85</Text>
-          </View>
-        </View>
+        ))}
 
         <View style={{ height: 24 }} />
       </ScrollView>
@@ -182,6 +210,32 @@ export function MobileHome({
       </View>
     </SafeAreaView>
   );
+}
+
+/* ── Helpers ────────────────────────────────────────────────────────── */
+
+function groupByDate(
+  rows: CategoryTransaction[],
+): Array<{ date: string; rows: CategoryTransaction[] }> {
+  const bucket = new Map<string, CategoryTransaction[]>();
+  for (const row of rows) {
+    const arr = bucket.get(row.date) ?? [];
+    arr.push(row);
+    bucket.set(row.date, arr);
+  }
+  return Array.from(bucket.entries())
+    .sort(([a], [b]) => b.localeCompare(a))
+    .map(([date, list]) => ({
+      date,
+      rows: list.sort((a, b) => b.amount - a.amount),
+    }));
+}
+
+/** "21 Apr" style, matching the Amex Canada iOS date header format. */
+function formatDayMonth(iso: string): string {
+  const [, m, d] = iso.split('-');
+  const monthLabels = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return `${Number(d)} ${monthLabels[Number(m) - 1]}`;
 }
 
 /* ── Sub-components ─────────────────────────────────────────────────── */
@@ -693,12 +747,14 @@ const styles = StyleSheet.create({
     color: AmexColors.textPrimary,
   },
   txnCard: {
+    marginBottom: 8,
     backgroundColor: AmexColors.surface,
     borderRadius: 12,
     paddingHorizontal: 16,
-    paddingVertical: 18,
+    paddingVertical: 14,
     flexDirection: 'row',
     alignItems: 'center',
+    gap: 12,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.04,
@@ -720,6 +776,19 @@ const styles = StyleSheet.create({
   txnPending: {
     marginTop: 2,
     fontSize: 12,
+    color: AmexColors.textSecondary,
+  },
+  txnIconDot: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: AmexColors.surfaceMuted,
+  },
+  txnSubMeta: {
+    marginTop: 2,
+    fontSize: 11,
     color: AmexColors.textSecondary,
   },
 

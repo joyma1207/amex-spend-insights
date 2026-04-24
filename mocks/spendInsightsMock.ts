@@ -26,13 +26,15 @@ const MONTHS: MockMonth[] = [
     billingMonth: '2025-10',
     start: '2025-10-01',
     end: '2025-10-31',
-    totalSpend: 1980.25,
-    totalMR: 6940,
+    totalSpend: 2085.25,
+    totalMR: 7150,
     categories: [
       cat('dining', 690, 3450, 5, 690, 2500, [
-        { name: 'Pai Northern Thai', transactionCount: 5, totalSpend: 184.5 },
-        { name: 'Bar Raval', transactionCount: 3, totalSpend: 142.0 },
-        { name: 'DoorDash', transactionCount: 7, totalSpend: 156.25 },
+        { name: 'UberEats', transactionCount: 8, totalSpend: 220.0 },
+        { name: 'Chipotle', transactionCount: 8, totalSpend: 132.0 },
+        { name: 'DoorDash', transactionCount: 5, totalSpend: 124.0 },
+        { name: 'Pai Northern Thai', transactionCount: 3, totalSpend: 115.0 },
+        { name: 'Bar Raval', transactionCount: 1, totalSpend: 99.0 },
       ]),
       cat('groceries', 305, 1525, 5, 305, 2500, [
         { name: 'Loblaws', transactionCount: 3, totalSpend: 168.4 },
@@ -44,10 +46,11 @@ const MONTHS: MockMonth[] = [
         { name: 'Spotify', transactionCount: 1, totalSpend: 10.99 },
         { name: 'Crave', transactionCount: 1, totalSpend: 9.99 },
       ]),
-      cat('transit', 165, 330, 2, undefined, undefined, [
-        { name: 'TTC Presto', transactionCount: 4, totalSpend: 64.0 },
-        { name: 'Uber', transactionCount: 6, totalSpend: 78.5 },
-        { name: 'Green P Parking', transactionCount: 3, totalSpend: 22.5 },
+      cat('transit', 270, 540, 2, undefined, undefined, [
+        { name: 'Shell', transactionCount: 1, totalSpend: 82.0 },
+        { name: 'Esso', transactionCount: 1, totalSpend: 78.0 },
+        { name: 'TTC Presto', transactionCount: 26, totalSpend: 65.0 },
+        { name: 'Uber', transactionCount: 3, totalSpend: 45.0 },
       ]),
       cat('travel', 290, 290, 1, undefined, undefined, [
         { name: 'Air Canada', transactionCount: 1, totalSpend: 245.0 },
@@ -74,13 +77,15 @@ const MONTHS: MockMonth[] = [
     billingMonth: '2025-11',
     start: '2025-11-01',
     end: '2025-11-30',
-    totalSpend: 2210.0,
-    totalMR: 7620,
+    totalSpend: 2310.0,
+    totalMR: 7820,
     categories: [
       cat('dining', 760, 3800, 5, 760, 2500, [
-        { name: 'Pai Northern Thai', transactionCount: 4, totalSpend: 162.0 },
-        { name: 'UberEats', transactionCount: 9, totalSpend: 218.4 },
-        { name: 'Bang Bang Ice Cream', transactionCount: 3, totalSpend: 32.1 },
+        { name: 'UberEats', transactionCount: 9, totalSpend: 242.0 },
+        { name: 'Chipotle', transactionCount: 9, totalSpend: 150.0 },
+        { name: 'Haidilao', transactionCount: 1, totalSpend: 148.0 },
+        { name: 'Pai Northern Thai', transactionCount: 3, totalSpend: 126.0 },
+        { name: 'Bang Bang Ice Cream', transactionCount: 6, totalSpend: 94.0 },
       ]),
       cat('groceries', 320, 1600, 5, 320, 2500, [
         { name: 'Loblaws', transactionCount: 4, totalSpend: 196.7 },
@@ -91,9 +96,11 @@ const MONTHS: MockMonth[] = [
         { name: 'Spotify', transactionCount: 1, totalSpend: 10.99 },
         { name: 'Disney+', transactionCount: 1, totalSpend: 13.99 },
       ]),
-      cat('transit', 175, 350, 2, undefined, undefined, [
-        { name: 'TTC Presto', transactionCount: 4, totalSpend: 64.0 },
-        { name: 'Uber', transactionCount: 8, totalSpend: 92.4 },
+      cat('transit', 275, 550, 2, undefined, undefined, [
+        { name: 'Shell', transactionCount: 1, totalSpend: 80.0 },
+        { name: 'Esso', transactionCount: 1, totalSpend: 80.0 },
+        { name: 'TTC Presto', transactionCount: 26, totalSpend: 65.0 },
+        { name: 'Uber', transactionCount: 3, totalSpend: 50.0 },
       ]),
       cat('travel', 380, 380, 1, undefined, undefined, [
         { name: 'Air Canada', transactionCount: 1, totalSpend: 312.0 },
@@ -119,13 +126,15 @@ const MONTHS: MockMonth[] = [
     billingMonth: '2025-12',
     start: '2025-12-01',
     end: '2025-12-31',
-    totalSpend: 2845.6,
-    totalMR: 9215,
+    totalSpend: 2950.6,
+    totalMR: 9425,
     categories: [
       cat('dining', 910, 4550, 5, 910, 2500, [
         { name: 'Alo', transactionCount: 1, totalSpend: 285.0 },
+        { name: 'UberEats', transactionCount: 10, totalSpend: 252.0 },
         { name: 'Edulis', transactionCount: 1, totalSpend: 192.0 },
-        { name: 'UberEats', transactionCount: 11, totalSpend: 254.6 },
+        { name: 'Chipotle', transactionCount: 6, totalSpend: 98.0 },
+        { name: 'Haidilao', transactionCount: 1, totalSpend: 83.0 },
       ]),
       cat('groceries', 410, 2050, 5, 410, 2500, [
         { name: 'Loblaws', transactionCount: 5, totalSpend: 245.0 },
@@ -137,9 +146,11 @@ const MONTHS: MockMonth[] = [
         { name: 'Apple TV+', transactionCount: 1, totalSpend: 12.99 },
         { name: 'Crave', transactionCount: 1, totalSpend: 21.0 },
       ]),
-      cat('transit', 195, 390, 2, undefined, undefined, [
-        { name: 'Uber', transactionCount: 12, totalSpend: 142.5 },
-        { name: 'TTC Presto', transactionCount: 3, totalSpend: 52.5 },
+      cat('transit', 300, 600, 2, undefined, undefined, [
+        { name: 'Uber', transactionCount: 4, totalSpend: 90.0 },
+        { name: 'Esso', transactionCount: 1, totalSpend: 82.0 },
+        { name: 'Shell', transactionCount: 1, totalSpend: 78.0 },
+        { name: 'TTC Presto', transactionCount: 20, totalSpend: 50.0 },
       ]),
       cat('travel', 510, 510, 1, undefined, undefined, [
         { name: 'Westjet', transactionCount: 1, totalSpend: 412.0 },
@@ -166,13 +177,15 @@ const MONTHS: MockMonth[] = [
     billingMonth: '2026-01',
     start: '2026-01-01',
     end: '2026-01-31',
-    totalSpend: 1920.4,
-    totalMR: 6720,
+    totalSpend: 2015.4,
+    totalMR: 6910,
     categories: [
       cat('dining', 615, 3075, 5, 615, 2500, [
         { name: 'Sushi Masaki Saito', transactionCount: 1, totalSpend: 198.0 },
-        { name: 'UberEats', transactionCount: 6, totalSpend: 142.5 },
-        { name: 'Pai Northern Thai', transactionCount: 2, totalSpend: 86.0 },
+        { name: 'UberEats', transactionCount: 7, totalSpend: 195.0 },
+        { name: 'Chipotle', transactionCount: 7, totalSpend: 113.0 },
+        { name: 'Pai Northern Thai', transactionCount: 2, totalSpend: 66.0 },
+        { name: 'Bar Raval', transactionCount: 1, totalSpend: 43.0 },
       ]),
       cat('groceries', 360, 1800, 5, 360, 2500, [
         { name: 'Loblaws', transactionCount: 4, totalSpend: 192.4 },
@@ -182,9 +195,11 @@ const MONTHS: MockMonth[] = [
         { name: 'Netflix', transactionCount: 1, totalSpend: 20.99 },
         { name: 'Spotify', transactionCount: 1, totalSpend: 10.99 },
       ]),
-      cat('transit', 170, 340, 2, undefined, undefined, [
-        { name: 'TTC Presto', transactionCount: 4, totalSpend: 64.0 },
-        { name: 'Uber', transactionCount: 7, totalSpend: 84.2 },
+      cat('transit', 265, 530, 2, undefined, undefined, [
+        { name: 'Shell', transactionCount: 1, totalSpend: 82.0 },
+        { name: 'Esso', transactionCount: 1, totalSpend: 78.0 },
+        { name: 'TTC Presto', transactionCount: 26, totalSpend: 65.0 },
+        { name: 'Uber', transactionCount: 2, totalSpend: 40.0 },
       ]),
       cat('travel', 245, 245, 1, undefined, undefined, [
         { name: 'Air Canada', transactionCount: 1, totalSpend: 198.0 },
@@ -210,13 +225,15 @@ const MONTHS: MockMonth[] = [
     billingMonth: '2026-02',
     start: '2026-02-01',
     end: '2026-02-28',
-    totalSpend: 2020.0,
-    totalMR: 7000,
+    totalSpend: 2105.0,
+    totalMR: 7170,
     categories: [
       cat('dining', 700, 3500, 5, 700, 2500, [
-        { name: 'Pai Northern Thai', transactionCount: 3, totalSpend: 124.0 },
-        { name: 'UberEats', transactionCount: 8, totalSpend: 196.0 },
+        { name: 'UberEats', transactionCount: 8, totalSpend: 224.0 },
         { name: 'DaiLo', transactionCount: 1, totalSpend: 142.0 },
+        { name: 'Chipotle', transactionCount: 8, totalSpend: 130.0 },
+        { name: 'Haidilao', transactionCount: 1, totalSpend: 112.0 },
+        { name: 'Pai Northern Thai', transactionCount: 3, totalSpend: 92.0 },
       ]),
       cat('groceries', 320, 1600, 5, 320, 2500, [
         { name: 'Loblaws', transactionCount: 4, totalSpend: 198.4 },
@@ -227,9 +244,11 @@ const MONTHS: MockMonth[] = [
         { name: 'Spotify', transactionCount: 1, totalSpend: 10.99 },
         { name: 'Disney+', transactionCount: 1, totalSpend: 13.99 },
       ]),
-      cat('transit', 170, 340, 2, undefined, undefined, [
-        { name: 'TTC Presto', transactionCount: 4, totalSpend: 64.0 },
-        { name: 'Uber', transactionCount: 7, totalSpend: 88.2 },
+      cat('transit', 255, 510, 2, undefined, undefined, [
+        { name: 'Shell', transactionCount: 1, totalSpend: 80.0 },
+        { name: 'Esso', transactionCount: 1, totalSpend: 80.0 },
+        { name: 'TTC Presto', transactionCount: 24, totalSpend: 60.0 },
+        { name: 'Uber', transactionCount: 2, totalSpend: 35.0 },
       ]),
       cat('travel', 280, 280, 1, undefined, undefined, [
         { name: 'Air Canada', transactionCount: 1, totalSpend: 234.0 },
@@ -250,20 +269,20 @@ const MONTHS: MockMonth[] = [
     ],
   },
 
-  // ── Mar 2026 — current month, matches PRD §9.3 example
+  // ── Mar 2026 — fully closed statement (ended March 31)
   {
     billingMonth: '2026-03',
     start: '2026-03-01',
-    end: '2026-03-28',
-    totalSpend: 2140.5,
-    totalMR: 7820,
+    end: '2026-03-31',
+    totalSpend: 2235.5,
+    totalMR: 8010,
     categories: [
       cat('dining', 820, 4100, 5, 820, 2500, [
-        { name: 'Pai Northern Thai', transactionCount: 4, totalSpend: 168.0 },
-        { name: 'UberEats', transactionCount: 9, totalSpend: 224.5 },
-        { name: 'Bar Raval', transactionCount: 2, totalSpend: 96.0 },
-        { name: 'Chipotle', transactionCount: 4, totalSpend: 72.0 },
-        { name: 'Bang Bang Ice Cream', transactionCount: 3, totalSpend: 36.5 },
+        { name: 'UberEats', transactionCount: 9, totalSpend: 268.0 },
+        { name: 'Chipotle', transactionCount: 10, totalSpend: 160.0 },
+        { name: 'Haidilao', transactionCount: 2, totalSpend: 149.0 },
+        { name: 'Pai Northern Thai', transactionCount: 3, totalSpend: 134.0 },
+        { name: 'Bar Raval', transactionCount: 2, totalSpend: 109.0 },
       ]),
       cat('groceries', 340, 1700, 5, 340, 2500, [
         { name: 'Loblaws', transactionCount: 4, totalSpend: 198.4 },
@@ -275,10 +294,11 @@ const MONTHS: MockMonth[] = [
         { name: 'Spotify', transactionCount: 1, totalSpend: 10.99 },
         { name: 'Disney+', transactionCount: 1, totalSpend: 13.99 },
       ]),
-      cat('transit', 180, 360, 2, undefined, undefined, [
-        { name: 'TTC Presto', transactionCount: 4, totalSpend: 64.0 },
-        { name: 'Uber', transactionCount: 8, totalSpend: 92.4 },
-        { name: 'Green P Parking', transactionCount: 2, totalSpend: 24.0 },
+      cat('transit', 275, 550, 2, undefined, undefined, [
+        { name: 'Shell', transactionCount: 1, totalSpend: 82.0 },
+        { name: 'Esso', transactionCount: 1, totalSpend: 78.0 },
+        { name: 'TTC Presto', transactionCount: 26, totalSpend: 65.0 },
+        { name: 'Uber', transactionCount: 3, totalSpend: 50.0 },
       ]),
       cat('travel', 320, 320, 1, undefined, undefined, [
         { name: 'Air Canada', transactionCount: 1, totalSpend: 245.0 },
@@ -297,6 +317,55 @@ const MONTHS: MockMonth[] = [
         { name: 'Shoppers Drug Mart', transactionCount: 2, totalSpend: 64.5 },
         { name: 'Bell Mobility', transactionCount: 1, totalSpend: 46.0 },
         { name: 'Canada Post', transactionCount: 1, totalSpend: 20.0 },
+      ]),
+    ],
+  },
+
+  // ── Apr 2026 — current month, in-progress (as of Apr 21)
+  {
+    billingMonth: '2026-04',
+    start: '2026-04-01',
+    end: '2026-04-21',
+    totalSpend: 1717.6,
+    totalMR: 5422,
+    categories: [
+      cat('dining', 610, 3050, 5, 610, 2500, [
+        { name: 'UberEats', transactionCount: 7, totalSpend: 199.0 },
+        { name: 'Chipotle', transactionCount: 7, totalSpend: 119.0 },
+        { name: 'Haidilao', transactionCount: 1, totalSpend: 111.0 },
+        { name: 'Pai Northern Thai', transactionCount: 2, totalSpend: 100.0 },
+        { name: 'Bar Raval', transactionCount: 1, totalSpend: 81.0 },
+      ]),
+      cat('groceries', 245, 1225, 5, 245, 2500, [
+        { name: 'Loblaws', transactionCount: 3, totalSpend: 152.4 },
+        { name: 'Farm Boy', transactionCount: 1, totalSpend: 58.0 },
+      ]),
+      cat('streaming', 45, 135, 3, undefined, undefined, [
+        { name: 'Netflix', transactionCount: 1, totalSpend: 20.99 },
+        { name: 'Spotify', transactionCount: 1, totalSpend: 10.99 },
+        { name: 'Disney+', transactionCount: 1, totalSpend: 13.99 },
+      ]),
+      cat('transit', 195, 390, 2, undefined, undefined, [
+        { name: 'Shell', transactionCount: 1, totalSpend: 80.0 },
+        { name: 'Esso', transactionCount: 1, totalSpend: 45.0 },
+        { name: 'TTC Presto', transactionCount: 18, totalSpend: 45.0 },
+        { name: 'Uber', transactionCount: 2, totalSpend: 25.0 },
+      ]),
+      cat('travel', 285, 285, 1, undefined, undefined, [
+        { name: 'Air Canada', transactionCount: 1, totalSpend: 245.0 },
+        { name: 'Airbnb', transactionCount: 1, totalSpend: 40.0 },
+      ]),
+      cat('shopping', 155, 155, 1, undefined, undefined, [
+        { name: 'Amazon.ca', transactionCount: 3, totalSpend: 108.5 },
+        { name: 'Indigo', transactionCount: 1, totalSpend: 32.0 },
+      ]),
+      cat('entertainment', 72, 72, 1, undefined, undefined, [
+        { name: 'Cineplex', transactionCount: 1, totalSpend: 28.0 },
+        { name: 'TIFF Lightbox', transactionCount: 1, totalSpend: 32.0 },
+      ]),
+      cat('other', 110.6, 110, 1, undefined, undefined, [
+        { name: 'Shoppers Drug Mart', transactionCount: 2, totalSpend: 58.6 },
+        { name: 'Bell Mobility', transactionCount: 1, totalSpend: 46.0 },
       ]),
     ],
   },

@@ -11,6 +11,7 @@ export default function SpendInsightsLayout() {
     >
       <Stack.Screen name="index" />
       <Stack.Screen name="[categoryId]" />
+      <Stack.Screen name="transactions/[categoryId]" />
       <Stack.Screen
         name="onboarding"
         options={{ animation: 'fade', presentation: 'modal' }}

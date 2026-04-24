@@ -158,7 +158,17 @@ export default function CategoryDetailScreen() {
             })}
           </View>
 
-          <Pressable style={styles.linkRow} accessibilityRole="link">
+          <Pressable
+            style={styles.linkRow}
+            accessibilityRole="link"
+            accessibilityLabel={`${Copy.category.viewAllTransactions} for ${meta.label}`}
+            onPress={() =>
+              router.push({
+                pathname: '/spend-insights/transactions/[categoryId]',
+                params: { categoryId: insight.categoryId },
+              })
+            }
+          >
             <Text style={styles.linkText}>{Copy.category.viewAllTransactions}</Text>
             <Text style={styles.linkChev}>›</Text>
           </Pressable>

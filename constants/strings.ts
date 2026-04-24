@@ -101,6 +101,15 @@ export const Copy = {
     viewAllTransactions: 'View all transactions',
     earnRateCallout: (mult: number) => `Earning ${mult}x Membership Rewards`,
   },
+  transactions: {
+    headerTitle: (category: string) => `${category} transactions`,
+    subtitle: (month: string) => `${month} · posted transactions`,
+    summary: (count: number, total: string, mr: string) =>
+      `${count === 1 ? '1 transaction' : `${count} transactions`} · ${total} · ${mr} MR`,
+    pointsEarned: (pts: string) => `+${pts} MR`,
+    earnRate: (mult: number) => `${mult}x`,
+    empty: 'No posted transactions for this category yet.',
+  },
   onboarding: {
     skip: 'Skip',
     next: 'Next',

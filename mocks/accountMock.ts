@@ -4,18 +4,18 @@ import type { AccountSnapshot } from '@/types/account';
  * Cobalt snapshot mirroring the Amex Canada home reference screenshot.
  *
  * Balances are aligned to the Spend Insights mock so the home hero and
- * the insights screens tell a single, consistent story:
- *   - Last Statement Balance = Feb 2026 total spend ($2,020.00)
- *   - Current Balance        = Mar 2026 (in-progress) total spend ($2,140.50)
+ * the insights screens tell a single, consistent story (today: Apr 21, 2026):
+ *   - Last Statement Balance = Mar 2026 total spend ($2,235.50, closed Mar 31)
+ *   - Current Balance        = Apr 2026 (in-progress) total spend ($1,717.60)
  */
 export const ACCOUNT_MOCK: AccountSnapshot = {
   last4: '61005',
   cardProductLabel: 'American Express Cobalt® Card',
-  lastStatementBalance: 2020.0,
-  lastStatementPeriod: { start: '2026-02-01', end: '2026-02-28' },
+  lastStatementBalance: 2235.5,
+  lastStatementPeriod: { start: '2026-03-01', end: '2026-03-31' },
   minAmountDue: 10.0,
   amountDueDate: '2026-04-30',
-  currentBalance: 2140.5,
+  currentBalance: 1717.6,
   availableCredit: 10005.0,
   membershipRewardsBalance: 82603,
 };

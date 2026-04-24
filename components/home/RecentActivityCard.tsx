@@ -3,54 +3,53 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { AmexColors } from '@/constants/amexColors';
 import { CATEGORY_META } from '@/constants/categories';
 import { Copy } from '@/constants/strings';
-import type { SpendInsightsResponse } from '@/types/spendInsights';
-import { formatCurrency } from '@/utils/format';
+import { useAllTransactions } from '@/services/spendInsightsApi';
+import type {
+  CategoryTransaction,
+  SpendInsightsResponse,
+} from '@/types/spendInsights';
+import { formatCurrency, formatDueDateShort } from '@/utils/format';
 
 interface Props {
   insights: SpendInsightsResponse | undefined;
 }
 
-interface FlatTxn {
-  id: string;
-  name: string;
-  amount: number;
+interface DateGroup {
   date: string;
-  categoryColor: string;
-  categoryGlyph: string;
-  categoryLabel: string;
+  rows: CategoryTransaction[];
 }
 
 /**
- * Desktop Recent Activity card — left/wide.
+ * Desktop Recent Activity card.
  * Tabs: Latest Transactions (default) / Pending Transactions.
- * Pulls a stub list from the top merchants in this month's insights so the
- * data feels internally consistent with the Spend Insights row.
+ *
+ * Pulls from `useAllTransactions`, the same generator that powers each
+ * category's "View all transactions" screen — so clicking a category and
+ * drilling in always produces a strict subset of what's visible here.
  */
 export function RecentActivityCard({ insights }: Props) {
   const t = Copy.homeDesktop.recentActivity;
   const [tab, setTab] = useState<'latest' | 'pending'>('latest');
 
-  const transactions = useMemo<FlatTxn[]>(() => {
-    if (!insights) return [];
-    const flat: FlatTxn[] = [];
-    insights.categories.forEach((cat) => {
-      const meta = CATEGORY_META[cat.categoryId];
-      cat.topMerchants.forEach((m, i) => {
-        flat.push({
-          id: `${cat.categoryId}-${i}-${m.name}`,
-          name: m.name,
-          amount: m.totalSpend,
-          date: dateForRow(insights.billingPeriod.end, flat.length),
-          categoryColor: meta.color,
-          categoryGlyph: meta.glyph,
-          categoryLabel: meta.label,
-        });
-      });
-    });
-    return flat
-      .sort((a, b) => (a.date < b.date ? 1 : -1))
-      .slice(0, 6);
-  }, [insights]);
+  const { data: transactions } = useAllTransactions(insights?.billingMonth);
+
+  const groups = useMemo<DateGroup[]>(() => {
+    if (!transactions) return [];
+    const bucket = new Map<string, CategoryTransaction[]>();
+    for (const txn of transactions) {
+      const arr = bucket.get(txn.date) ?? [];
+      arr.push(txn);
+      bucket.set(txn.date, arr);
+    }
+    return Array.from(bucket.entries())
+      .sort(([a], [b]) => b.localeCompare(a))
+      .map(([date, rows]) => ({
+        date,
+        rows: rows.sort((a, b) => b.amount - a.amount),
+      }));
+  }, [transactions]);
+
+  const totalCount = transactions?.length ?? 0;
 
   return (
     <View style={styles.card}>
@@ -93,24 +92,40 @@ export function RecentActivityCard({ insights }: Props) {
 
       {tab === 'latest' ? (
         <View style={styles.txnList}>
-          {transactions.map((txn) => (
-            <View key={txn.id} style={styles.txnRow}>
-              <View
-                style={[styles.txnIcon, { backgroundColor: txn.categoryColor + '22' }]}
-              >
-                <Text style={[styles.txnGlyph, { color: txn.categoryColor }]}>
-                  {txn.categoryGlyph}
-                </Text>
-              </View>
-              <View style={styles.txnBody}>
-                <Text style={styles.txnName} numberOfLines={1}>
-                  {txn.name}
-                </Text>
-                <Text style={styles.txnMeta}>
-                  {txn.date} · {txn.categoryLabel}
-                </Text>
-              </View>
-              <Text style={styles.txnAmount}>{formatCurrency(txn.amount, true)}</Text>
+          {groups.map((group) => (
+            <View key={group.date}>
+              <Text style={styles.dateHeader}>
+                {formatDueDateShort(group.date)}
+              </Text>
+              {group.rows.map((row) => {
+                const meta = CATEGORY_META[row.categoryId];
+                return (
+                  <View key={row.id} style={styles.txnRow}>
+                    <View
+                      style={[
+                        styles.txnIcon,
+                        { backgroundColor: meta.color + '22' },
+                      ]}
+                    >
+                      <Text style={[styles.txnGlyph, { color: meta.color }]}>
+                        {meta.glyph}
+                      </Text>
+                    </View>
+                    <View style={styles.txnBody}>
+                      <Text style={styles.txnName} numberOfLines={1}>
+                        {row.merchantName}
+                      </Text>
+                      <Text style={styles.txnMeta}>
+                        {meta.label} · {row.earnRateMultiplier}x · +
+                        {row.pointsEarned.toLocaleString('en-CA')} MR
+                      </Text>
+                    </View>
+                    <Text style={styles.txnAmount}>
+                      {formatCurrency(row.amount, true)}
+                    </Text>
+                  </View>
+                );
+              })}
             </View>
           ))}
         </View>
@@ -120,26 +135,11 @@ export function RecentActivityCard({ insights }: Props) {
         </View>
       )}
 
-      {insights && (
-        <Text style={styles.footerNote}>
-          {t.transactionCount(
-            insights.categories.reduce(
-              (acc, c) => acc + c.topMerchants.reduce((a, m) => a + m.transactionCount, 0),
-              0,
-            ),
-          )}
-        </Text>
+      {totalCount > 0 && (
+        <Text style={styles.footerNote}>{t.transactionCount(totalCount)}</Text>
       )}
     </View>
   );
-}
-
-/** Stable, deterministic date strings for the stub txn list. */
-function dateForRow(billingEnd: string, index: number): string {
-  const [, m, d] = billingEnd.split('-');
-  const day = Math.max(1, Number(d) - index * 2);
-  const monthLabels = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  return `${monthLabels[Number(m) - 1]} ${day}`;
 }
 
 const styles = StyleSheet.create({
@@ -217,7 +217,16 @@ const styles = StyleSheet.create({
     color: AmexColors.blue,
     fontWeight: '700',
   },
-  txnList: { gap: 4 },
+  txnList: { gap: 0 },
+  dateHeader: {
+    marginTop: 12,
+    marginBottom: 4,
+    fontSize: 11,
+    fontWeight: '700',
+    color: AmexColors.textSecondary,
+    textTransform: 'uppercase',
+    letterSpacing: 0.8,
+  },
   txnRow: {
     flexDirection: 'row',
     alignItems: 'center',

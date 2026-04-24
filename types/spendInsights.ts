@@ -63,3 +63,20 @@ export interface SpendInsightsResponse {
   /** Most recent first, length up to 6 (current + 5 prior). Used by TrendChart. */
   trend: Array<{ billingMonth: string; totalSpend: number }>;
 }
+
+/**
+ * Individual posted transaction row for the category-scoped transactions list
+ * (PRD §8.2 — "View all transactions"). In production this shape mirrors the
+ * existing Amex Canada transactions service; here we synthesize from the
+ * merchant aggregates so per-merchant totals and category totals still reconcile.
+ */
+export interface CategoryTransaction {
+  id: string;
+  categoryId: CategoryId;
+  merchantName: string;
+  /** ISO date YYYY-MM-DD */
+  date: string;
+  amount: number;
+  earnRateMultiplier: EarnRateMultiplier;
+  pointsEarned: number;
+}

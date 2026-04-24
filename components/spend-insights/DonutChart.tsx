@@ -38,8 +38,14 @@ interface Segment {
 }
 
 /**
- * Animated donut. Up to 8 slices, 300ms ease-out arc draw on load (PRD §8.2).
+ * Animated donut. Up to 8 slices, 300ms ease-out reveal on load (PRD §8.2).
  * Pure SVG so it works identically on iOS, Android, and web with no native module.
+ *
+ * Reveal mechanics: the coloured arcs are rendered first, then a full-ring
+ * white "mask" stroke is drawn on top with `stroke-dasharray = circumference`.
+ * The mask's `stroke-dashoffset` is animated from 0 (dash phase fills the whole
+ * path → fully covering) to `circumference` (gap phase → fully uncovered),
+ * which makes the colour appear to sweep in from 12 o'clock.
  */
 export function DonutChart({
   slices,
@@ -72,9 +78,8 @@ export function DonutChart({
     });
   }, [slices, total]);
 
-  // Animated draw — single shared progress drives a stroke-dashoffset on
-  // a tracer circle, then we render coloured arcs underneath. Combined effect:
-  // colour appears to sweep around in 300ms. (PRD §8.2)
+  // progress: 0 = mask fully drawn (ring is white), 1 = mask fully retracted
+  // (colours revealed). Replays on every month change.
   const progress = useSharedValue(0);
   useEffect(() => {
     progress.value = 0;
@@ -85,7 +90,9 @@ export function DonutChart({
   }, [billingMonth, progress]);
 
   const maskProps = useAnimatedProps(() => ({
-    strokeDashoffset: circumference * (1 - progress.value),
+    // progress 0 → offset 0 (dash covers full path → mask visible)
+    // progress 1 → offset C (gap covers full path → mask invisible)
+    strokeDashoffset: circumference * progress.value,
   }));
 
   return (
