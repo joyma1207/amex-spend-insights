@@ -93,9 +93,17 @@ export function SpendInsightsDesktopRow({
       ]}
     >
       <View style={styles.eyebrowRow}>
-        <View style={styles.eyebrowPill}>
-          <View style={styles.eyebrowDot} />
-          <Text style={styles.eyebrow}>{t.desktopEyebrow}</Text>
+        <View style={styles.eyebrowLeftGroup}>
+          <View style={styles.eyebrowPill}>
+            <View style={styles.eyebrowDot} />
+            <Text style={styles.eyebrow}>{t.desktopEyebrow}</Text>
+          </View>
+          <View style={styles.newBadge}>
+            <Text style={styles.newBadgeText}>NEW</Text>
+          </View>
+          <Text style={styles.newTagline} numberOfLines={1}>
+            You can now see your spending and Membership Rewards here.
+          </Text>
         </View>
         <Text style={styles.eyebrowMeta}>
           {formatBillingDates(insights.billingPeriod.start, insights.billingPeriod.end)}
@@ -270,6 +278,32 @@ const styles = StyleSheet.create({
     color: AmexColors.textSecondary,
     fontSize: 12,
     fontWeight: '600',
+  },
+  eyebrowLeftGroup: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    minWidth: 0,
+  },
+  newBadge: {
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    borderRadius: 10,
+    backgroundColor: AmexColors.blue,
+  },
+  newBadgeText: {
+    color: '#FFFFFF',
+    fontSize: 10,
+    fontWeight: '800',
+    letterSpacing: 0.8,
+  },
+  newTagline: {
+    flex: 1,
+    minWidth: 0,
+    color: AmexColors.textSecondary,
+    fontSize: 12,
+    fontWeight: '500',
   },
   row: {
     flexDirection: 'row',

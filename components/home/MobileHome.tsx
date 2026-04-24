@@ -148,6 +148,15 @@ export function MobileHome({
 
         {/* ── Spend Insights (PRD §8.1 entry point) ──────────────────── */}
         <View style={styles.insightsSection}>
+          <View style={styles.sectionHeaderRow}>
+            <Text style={styles.sectionHeader}>Spend Insights</Text>
+            <View style={styles.newPill}>
+              <Text style={styles.newPillText}>NEW</Text>
+            </View>
+          </View>
+          <Text style={styles.sectionSubcopy}>
+            You can now see your spending and Membership Rewards here.
+          </Text>
           <SpendInsightsHomeCard
             loading={insightsLoading}
             billingMonth={insights?.billingMonth}
@@ -736,7 +745,37 @@ const styles = StyleSheet.create({
   },
 
   /* Insights section */
-  insightsSection: { marginTop: 16 },
+  insightsSection: { marginTop: 24 },
+  sectionHeaderRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+  },
+  sectionHeader: {
+    fontSize: 20,
+    fontWeight: '700',
+    color: AmexColors.textPrimary,
+    letterSpacing: -0.2,
+  },
+  newPill: {
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    borderRadius: 10,
+    backgroundColor: AmexColors.blue,
+  },
+  newPillText: {
+    color: '#FFFFFF',
+    fontSize: 10,
+    fontWeight: '800',
+    letterSpacing: 0.8,
+  },
+  sectionSubcopy: {
+    marginTop: 4,
+    marginBottom: 12,
+    fontSize: 13,
+    lineHeight: 18,
+    color: AmexColors.textSecondary,
+  },
 
   /* Recent activity */
   dateHeader: {

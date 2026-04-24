@@ -326,16 +326,34 @@ const MONTHS: MockMonth[] = [
     billingMonth: '2026-04',
     start: '2026-04-01',
     end: '2026-04-21',
-    totalSpend: 1717.6,
-    totalMR: 5422,
+    totalSpend: 1876.0,
+    totalMR: 6214,
     categories: [
-      cat('dining', 610, 3050, 5, 610, 2500, [
-        { name: 'UberEats', transactionCount: 7, totalSpend: 199.0 },
-        { name: 'Chipotle', transactionCount: 7, totalSpend: 119.0 },
-        { name: 'Haidilao', transactionCount: 1, totalSpend: 111.0 },
-        { name: 'Pai Northern Thai', transactionCount: 2, totalSpend: 100.0 },
-        { name: 'Bar Raval', transactionCount: 1, totalSpend: 81.0 },
-      ]),
+      cat(
+        'dining',
+        768.4,
+        3842,
+        5,
+        768.4,
+        2500,
+        [
+          { name: 'UberEats', transactionCount: 7, totalSpend: 199.0 },
+          { name: 'Canoe', transactionCount: 1, totalSpend: 158.4 },
+          { name: 'Chipotle', transactionCount: 7, totalSpend: 119.0 },
+          { name: 'Haidilao', transactionCount: 1, totalSpend: 111.0 },
+          { name: 'Pai Northern Thai', transactionCount: 2, totalSpend: 100.0 },
+          { name: 'Bar Raval', transactionCount: 1, totalSpend: 81.0 },
+        ],
+        [
+          {
+            merchantName: 'Canoe',
+            amount: 158.4,
+            date: '2026-04-18',
+            reason:
+              "You haven't spent here before, and it's well above your usual per-visit dining spend.",
+          },
+        ],
+      ),
       cat('groceries', 245, 1225, 5, 245, 2500, [
         { name: 'Loblaws', transactionCount: 3, totalSpend: 152.4 },
         { name: 'Farm Boy', transactionCount: 1, totalSpend: 58.0 },
@@ -379,6 +397,7 @@ function cat(
   cobaltCapUsed: number | undefined,
   cobaltCapLimit: number | undefined,
   topMerchants: CategoryInsight['topMerchants'],
+  anomalies?: CategoryInsight['anomalies'],
 ): Omit<CategoryInsight, 'monthOverMonthDelta'> {
   return {
     categoryId,
@@ -388,6 +407,7 @@ function cat(
     ...(cobaltCapUsed !== undefined ? { cobaltCapUsed } : {}),
     ...(cobaltCapLimit !== undefined ? { cobaltCapLimit } : {}),
     topMerchants,
+    ...(anomalies && anomalies.length > 0 ? { anomalies } : {}),
   };
 }
 

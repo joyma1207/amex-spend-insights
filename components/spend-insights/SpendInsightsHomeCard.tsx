@@ -58,11 +58,11 @@ export function SpendInsightsHomeCard({
             <Text style={styles.subtitle} numberOfLines={1}>
               {topCategory
                 ? Copy.insightsCard.subtitle(
-                    formatCurrency(totalSpend),
+                    formatCurrency(totalSpend, true),
                     CATEGORY_META[topCategory.categoryId].label,
-                    formatCurrency(topCategory.totalSpend),
+                    formatCurrency(topCategory.totalSpend, true),
                   )
-                : `${formatCurrency(totalSpend)} total`}
+                : `${formatCurrency(totalSpend, true)} total`}
             </Text>
           </>
         )}

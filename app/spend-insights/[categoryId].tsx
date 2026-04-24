@@ -158,6 +158,60 @@ export default function CategoryDetailScreen() {
             })}
           </View>
 
+          {insight.anomalies?.map((anomaly) => (
+            <View
+              key={`${anomaly.merchantName}-${anomaly.date}`}
+              style={styles.anomalyCard}
+              accessibilityRole="alert"
+            >
+              <View style={styles.anomalyIconWrap}>
+                <Text style={styles.anomalyIconGlyph}>!</Text>
+              </View>
+              <View style={styles.anomalyBody}>
+                <Text style={styles.anomalyTitle}>
+                  Heads up — unusual purchase
+                </Text>
+                <Text style={styles.anomalyReason}>{anomaly.reason}</Text>
+                <View style={styles.anomalyRow}>
+                  <Text style={styles.anomalyMerchant}>
+                    {anomaly.merchantName}
+                  </Text>
+                  <Text style={styles.anomalyAmount}>
+                    {formatCurrency(anomaly.amount, true)}
+                  </Text>
+                </View>
+                <View style={styles.anomalyActions}>
+                  <Pressable
+                    style={({ pressed }) => [
+                      styles.anomalyButton,
+                      styles.anomalyButtonPrimary,
+                      pressed && { opacity: 0.85 },
+                    ]}
+                    accessibilityRole="button"
+                    accessibilityLabel="Confirm this purchase was me"
+                  >
+                    <Text style={styles.anomalyButtonPrimaryText}>
+                      Yes, this was me
+                    </Text>
+                  </Pressable>
+                  <Pressable
+                    style={({ pressed }) => [
+                      styles.anomalyButton,
+                      styles.anomalyButtonSecondary,
+                      pressed && { opacity: 0.85 },
+                    ]}
+                    accessibilityRole="button"
+                    accessibilityLabel="Report this purchase as fraud"
+                  >
+                    <Text style={styles.anomalyButtonSecondaryText}>
+                      Report as fraud
+                    </Text>
+                  </Pressable>
+                </View>
+              </View>
+            </View>
+          ))}
+
           <Pressable
             style={styles.linkRow}
             accessibilityRole="link"
@@ -372,5 +426,94 @@ const styles = StyleSheet.create({
   linkChev: {
     fontSize: 22,
     color: AmexColors.blue,
+  },
+  anomalyCard: {
+    marginTop: 18,
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: 12,
+    padding: 14,
+    borderRadius: 12,
+    borderLeftWidth: 4,
+    borderLeftColor: AmexColors.warning,
+    backgroundColor: '#FFF7E8',
+  },
+  anomalyIconWrap: {
+    width: 28,
+    height: 28,
+    borderRadius: 14,
+    backgroundColor: AmexColors.warning,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  anomalyIconGlyph: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: '800',
+    lineHeight: 18,
+  },
+  anomalyBody: { flex: 1, minWidth: 0 },
+  anomalyTitle: {
+    fontSize: 14,
+    fontWeight: '700',
+    color: AmexColors.textPrimary,
+  },
+  anomalyReason: {
+    marginTop: 4,
+    fontSize: 12,
+    lineHeight: 17,
+    color: AmexColors.textSecondary,
+  },
+  anomalyRow: {
+    marginTop: 10,
+    paddingTop: 10,
+    borderTopWidth: 1,
+    borderTopColor: '#F0E4CC',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 8,
+  },
+  anomalyMerchant: {
+    flex: 1,
+    fontSize: 13,
+    fontWeight: '600',
+    color: AmexColors.textPrimary,
+  },
+  anomalyAmount: {
+    fontSize: 13,
+    fontWeight: '700',
+    color: AmexColors.textPrimary,
+  },
+  anomalyActions: {
+    marginTop: 12,
+    flexDirection: 'row',
+    gap: 8,
+  },
+  anomalyButton: {
+    flex: 1,
+    height: 36,
+    borderRadius: 18,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 12,
+  },
+  anomalyButtonPrimary: {
+    backgroundColor: AmexColors.blue,
+  },
+  anomalyButtonPrimaryText: {
+    color: '#FFFFFF',
+    fontSize: 12,
+    fontWeight: '700',
+  },
+  anomalyButtonSecondary: {
+    backgroundColor: 'transparent',
+    borderWidth: 1,
+    borderColor: AmexColors.blue,
+  },
+  anomalyButtonSecondaryText: {
+    color: AmexColors.blue,
+    fontSize: 12,
+    fontWeight: '700',
   },
 });

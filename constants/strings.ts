@@ -18,12 +18,12 @@ export const Copy = {
     offersSubtitle: '6 offers · earn up to 4,200 MR',
   },
   insightsCard: {
-    title: (month: string) => `${month} spending`,
+    title: (month: string) => `${month} Spending`,
     subtitle: (total: string, topCat: string, topAmount: string) =>
       `${total} total · Top: ${topCat} ${topAmount}`,
     empty: 'Tap to see your spending breakdown',
     desktopEyebrow: 'Spend Insights',
-    desktopTitle: (month: string) => `${month} spending`,
+    desktopTitle: (month: string) => `${month} Spending`,
     desktopTotalLine: (total: string, mr: string) =>
       `${total} total · ${mr} MR earned this month`,
     desktopCta: 'View full insights',

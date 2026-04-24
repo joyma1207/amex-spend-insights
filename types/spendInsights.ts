@@ -40,6 +40,21 @@ export interface TopMerchant {
   totalSpend: number;
 }
 
+/**
+ * Purchases flagged by the fraud-protection / anomaly-detection layer —
+ * typically a merchant the cardholder has never used before with a spend
+ * well above their usual per-transaction ceiling for this category.
+ * Surfaced on the category detail screen as a "Heads up" banner (PRD §8.2a).
+ */
+export interface MerchantAnomaly {
+  merchantName: string;
+  amount: number;
+  /** ISO date the flagged transaction posted */
+  date: string;
+  /** Short, humanized reason copy to show in the banner */
+  reason: string;
+}
+
 export interface CategoryInsight {
   categoryId: CategoryId;
   totalSpend: number;
@@ -50,6 +65,8 @@ export interface CategoryInsight {
   cobaltCapLimit?: number;
   monthOverMonthDelta: MonthOverMonthDelta;
   topMerchants: TopMerchant[];
+  /** Optional fraud/anomaly flags for this category in this billing month. */
+  anomalies?: MerchantAnomaly[];
 }
 
 export interface SpendInsightsResponse {
