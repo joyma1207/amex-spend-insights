@@ -143,16 +143,13 @@ const styles = StyleSheet.create({
     paddingVertical: 24,
     borderTopLeftRadius: 4,
     borderBottomLeftRadius: 4,
-    transform: [{ rotate: '0deg' }],
   },
   feedbackText: {
     color: '#FFFFFF',
     fontWeight: '700',
     fontSize: 11,
     writingDirection: 'ltr',
-    transform: [{ rotate: '180deg' }],
-    // Vertical text — we approximate with line breaks since RN web doesn't
-    // honour CSS writing-mode in all browsers reliably.
+    transform: [{ rotate: '0deg' }],
     letterSpacing: 1,
   },
 });
