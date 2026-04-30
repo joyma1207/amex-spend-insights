@@ -1,14 +1,14 @@
 import React, { useMemo } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import {
+  Image,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Svg, {
-  Circle,
-  Defs,
-  LinearGradient,
-  Path,
-  Rect,
-  Stop,
-} from 'react-native-svg';
+import Svg, { Circle, Path, Rect } from 'react-native-svg';
 import { AmexColors } from '@/constants/amexColors';
 import { CATEGORY_META } from '@/constants/categories';
 import { SpendInsightsHomeCard } from '@/components/spend-insights/SpendInsightsHomeCard';
@@ -266,121 +266,15 @@ function TabItem({
   );
 }
 
-function CobaltCardVisual({ last4 }: { last4: string }) {
+function CobaltCardVisual({ last4: _last4 }: { last4: string }) {
   return (
     <View style={styles.cobaltCardOuter}>
-      <Svg
-        width="100%"
-        height="100%"
-        viewBox="0 0 360 220"
-        preserveAspectRatio="xMidYMid slice"
-        style={StyleSheet.absoluteFill}
-      >
-        <Defs>
-          <LinearGradient id="cobaltBg" x1="0" y1="0" x2="1" y2="1">
-            <Stop offset="0%" stopColor="#1F3344" />
-            <Stop offset="55%" stopColor="#0E1E2C" />
-            <Stop offset="100%" stopColor="#070F18" />
-          </LinearGradient>
-        </Defs>
-        <Rect x={0} y={0} width={360} height={220} rx={14} fill="url(#cobaltBg)" />
-        {/* subtle diagonal sheen */}
-        <Path
-          d="M 0 60 L 360 0 L 360 90 L 0 150 Z"
-          fill="#FFFFFF"
-          opacity={0.025}
-        />
-        {/* honeycomb-ish dot texture */}
-        {Array.from({ length: 7 }).map((_, row) =>
-          Array.from({ length: 13 }).map((_, col) => (
-            <Circle
-              key={`${row}-${col}`}
-              cx={20 + col * 28 + (row % 2 ? 14 : 0)}
-              cy={30 + row * 26}
-              r={0.7}
-              fill="#FFFFFF"
-              opacity={0.07}
-            />
-          )),
-        )}
-      </Svg>
-
-      <Text style={styles.cobaltCardBrand}>AMERICAN EXPRESS</Text>
-
-      <View style={styles.cobaltCardChipRow}>
-        <View style={styles.cobaltCardChip}>
-          <View style={styles.cobaltCardChipLine} />
-          <View style={styles.cobaltCardChipLine} />
-          <View style={styles.cobaltCardChipLine} />
-        </View>
-      </View>
-
-      <View style={styles.cobaltCardEmblem}>
-        <Svg width={36} height={36} viewBox="0 0 56 56">
-          <Circle
-            cx={28}
-            cy={28}
-            r={26}
-            fill="none"
-            stroke="#FFFFFF"
-            strokeOpacity={0.7}
-            strokeWidth={1.5}
-          />
-          <Path
-            d="M28 12 C20 14 18 22 18 28 C18 36 22 42 28 44 C34 42 38 36 38 28 C38 22 36 14 28 12 Z"
-            fill="#FFFFFF"
-            opacity={0.85}
-          />
-          <Path
-            d="M22 28 L28 18 L34 28 M24 30 L32 30"
-            stroke="#0E1E2C"
-            strokeWidth={1.4}
-            fill="none"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </Svg>
-      </View>
-
-      <View style={styles.cobaltCardContactless}>
-        <Svg width={12} height={15} viewBox="0 0 18 22">
-          <Path
-            d="M3 5 Q9 11 3 17"
-            stroke="#FFFFFF"
-            strokeOpacity={0.85}
-            strokeWidth={1.8}
-            fill="none"
-            strokeLinecap="round"
-          />
-          <Path
-            d="M7 3 Q14 11 7 19"
-            stroke="#FFFFFF"
-            strokeOpacity={0.7}
-            strokeWidth={1.8}
-            fill="none"
-            strokeLinecap="round"
-          />
-          <Path
-            d="M11 1 Q19 11 11 21"
-            stroke="#FFFFFF"
-            strokeOpacity={0.55}
-            strokeWidth={1.8}
-            fill="none"
-            strokeLinecap="round"
-          />
-        </Svg>
-      </View>
-
-      <Text style={styles.cobaltCardLast4}>{last4.slice(-4)}</Text>
-
-      <View style={styles.cobaltCardMemberWrap}>
-        <Text style={styles.cobaltCardMemberLabel}>Member Since</Text>
-        <Text style={styles.cobaltCardMemberLabelFr}>Titulaire depuis</Text>
-        <Text style={styles.cobaltCardMemberSince}>17</Text>
-      </View>
-
-      <Text style={styles.cobaltCardName}>C F FROST</Text>
-      <Text style={styles.cobaltCardCorner}>© AMEX</Text>
+      <Image
+        source={require('@/assets/cobalt-card.png')}
+        style={styles.cobaltCardImage}
+        resizeMode="contain"
+        accessibilityLabel="American Express Cobalt Card"
+      />
     </View>
   );
 }
@@ -566,104 +460,11 @@ const styles = StyleSheet.create({
   cobaltCardOuter: {
     width: '62%',
     maxWidth: 240,
-    aspectRatio: 1.586, // ISO 7810 ID-1 ratio
-    borderRadius: 12,
-    overflow: 'hidden',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 5 },
-    shadowOpacity: 0.18,
-    shadowRadius: 12,
-    elevation: 4,
+    aspectRatio: 1.579, // matches cobalt-card.png (480 × 304)
   },
-  cobaltCardBrand: {
-    position: 'absolute',
-    top: 8,
-    left: 10,
-    right: 10,
-    color: '#FFFFFF',
-    fontSize: 8,
-    letterSpacing: 0.9,
-    fontWeight: '700',
-  },
-  cobaltCardChipRow: {
-    position: 'absolute',
-    top: 22,
-    left: 10,
-  },
-  cobaltCardChip: {
-    width: 18,
-    height: 14,
-    borderRadius: 2.5,
-    backgroundColor: '#C9A96B',
-    padding: 2,
-    justifyContent: 'space-between',
-  },
-  cobaltCardChipLine: {
-    height: 0.7,
-    backgroundColor: '#7A6238',
-    opacity: 0.55,
-  },
-  cobaltCardEmblem: {
-    position: 'absolute',
-    top: '36%',
-    left: '50%',
-    marginLeft: -18,
-  },
-  cobaltCardContactless: {
-    position: 'absolute',
-    top: '40%',
-    right: 12,
-  },
-  cobaltCardLast4: {
-    position: 'absolute',
-    bottom: 28,
-    right: 14,
-    color: '#FFFFFF',
-    fontSize: 10,
-    fontWeight: '700',
-    letterSpacing: 1.2,
-  },
-  cobaltCardMemberWrap: {
-    position: 'absolute',
-    bottom: 8,
-    right: 10,
-    alignItems: 'flex-end',
-  },
-  cobaltCardMemberLabel: {
-    color: '#FFFFFFCC',
-    fontSize: 5.5,
-    letterSpacing: 0.2,
-    lineHeight: 7,
-  },
-  cobaltCardMemberLabelFr: {
-    color: '#FFFFFFCC',
-    fontSize: 5.5,
-    letterSpacing: 0.2,
-    lineHeight: 7,
-  },
-  cobaltCardMemberSince: {
-    color: '#FFFFFF',
-    fontSize: 9,
-    fontWeight: '700',
-    marginTop: 1,
-  },
-  cobaltCardName: {
-    position: 'absolute',
-    bottom: 12,
-    left: 10,
-    color: '#FFFFFF',
-    fontSize: 9,
-    letterSpacing: 1,
-    fontWeight: '600',
-  },
-  cobaltCardCorner: {
-    position: 'absolute',
-    bottom: 2,
-    right: 6,
-    color: '#FFFFFF',
-    fontSize: 5,
-    opacity: 0.5,
-    letterSpacing: 0.3,
+  cobaltCardImage: {
+    width: '100%',
+    height: '100%',
   },
 
   /* Balance card */

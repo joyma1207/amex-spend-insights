@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import { AmexColors } from '@/constants/amexColors';
 import { Copy } from '@/constants/strings';
 import type { AccountSnapshot } from '@/types/account';
@@ -27,7 +27,12 @@ export function BalanceHeroDesktop({ account, loading }: Props) {
   return (
     <View style={styles.card}>
       <View style={styles.headerRow}>
-        <View style={styles.cardChip} />
+        <Image
+          source={require('@/assets/cobalt-card.png')}
+          style={styles.cardChip}
+          resizeMode="contain"
+          accessibilityLabel="American Express Cobalt Card"
+        />
         <View style={styles.headerText}>
           <Text style={styles.productName}>
             {account?.cardProductLabel ?? 'American Express Cobalt® Card'}
